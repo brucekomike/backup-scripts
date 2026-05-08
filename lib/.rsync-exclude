@@ -1,0 +1,30 @@
+# Ignore Git directories
+.git/
+
+# Ignore build directories
+build*/
+
+# Ignore Qt directories
+.qt/
+
+# Ignore tmp directories
+tmp/
+
+# Ignore Python cache
+__pycache__/
+
+# Ignore virtual environments
+.venv*/
+
+# ignore archives
+*.zip
+*.tar
+*.gz
+*.bz2
+*.xz
+*.zst
+*.7z
+*.rar
+*.tgz
+*.tbz2
+*.txz

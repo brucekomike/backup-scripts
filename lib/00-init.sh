@@ -1,12 +1,19 @@
 function check-command(){
   command -v "$1" >/dev/null 2>&1
 }
+
+function check-remote-command(){
+  ssh "$1" "command -v \"$2\" >/dev/null 2>&1"
+}
+
 commandlist=(
   "rsync"
   "date"
+  "nano"
   "mkdir"
-  "ssh" 
+  "ssh"
 )
+
 for cmd in "${commandlist[@]}"; do
   if ! check-command "$cmd"; then
     echo "Error: $cmd is not installed." >&2
@@ -14,6 +21,11 @@ for cmd in "${commandlist[@]}"; do
   fi
 done
 BACKUP_CONF="conf/$REMOTE_HOST.conf"
+
+if ! check-remote-command "$REMOTE_HOST" "rsync"; then
+  echo "Error: rsync is not installed on $REMOTE_HOST." >&2
+  exit 1
+fi
 
 if [[ -f "$BACKUP_CONF" ]]; then
   nano "$BACKUP_CONF"

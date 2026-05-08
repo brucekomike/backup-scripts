@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # $0 <host>
 if [ $# -ne 1 ]; then
   echo "Usage: $0 <host>"
@@ -11,23 +11,23 @@ for lib in lib/*.sh; do
   source "$lib"
 done
 
-read -p "backup files? [Y/n] " answer
-if [[ "$answer" = "Y" || "$answer" = "y" || "$answer" = "" ]]; then
-  echo "Starting backup..."
-  # skip empty lines and comments
-  while IFS= read -r line; do
-    if [[ -z "$line" || "$line" =~ ^# ]]; then
-      continue
-    fi
+while IFS= read -r line; do
+  if [[ -z "$line" || "$line" =~ ^# ]]; then
+    continue
+  fi
+  read -p "backup $line? [Y/n] " answer </dev/tty
+  if [[ "$answer" = "Y" || "$answer" = "y" || "$answer" = "" ]]; then
     echo "Backing up $line..."
     mkdir -p "$BACKUP_DEST$line"
     cp-remote "$line"
-  done < "$BACKUP_CONF"
-else
-  echo "Backup files cancelled."
-fi
+  else
+    echo "$line skipped."
+  fi
+done < "$BACKUP_CONF"
 
-read -p "backup mariadb? [Y/n] " answer
+read -p "backup mariadb? [Y/n] " answer </dev/tty
 if [[ "$answer" = "Y" || "$answer" = "y" || "$answer" = "" ]]; then
   ssh-dump-mariadb
+else
+  echo "mariadb backup skipped."
 fi

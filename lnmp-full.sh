@@ -18,7 +18,7 @@ while IFS= read -r line; do
   read -p "backup $line? [Y/n] " answer </dev/tty
   if [[ "$answer" = "Y" || "$answer" = "y" || "$answer" = "" ]]; then
     echo "Backing up $line..."
-    mkdir -p "$BACKUP_DEST$line"
+    mkdir -p "$BACKUP_DEST/$line"
     cp-remote "$line"
   else
     echo "$line skipped."

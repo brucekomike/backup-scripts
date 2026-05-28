@@ -2,13 +2,13 @@
 # $0 <host>
 
 REMOTE_HOST="$1"
-BACKUP_DEST="zz-backup/backup-${REMOTE_HOST}-ct"
+BACKUP_DEST="zz-backup/backup-${REMOTE_HOST}-ct-$(date +%Y%m%d)"
 
 source lib/00-init.sh
 
 read -p "backup ct configs? [Y/n] " answer </dev/tty
 if [[ "$answer" = "Y" || "$answer" = "y" || "$answer" = "" ]]; then
-  ssh -t "$REMOTE_HOST" "cd om-ct; ./bin/backup-configs.sh"
+  ssh -t "$REMOTE_HOST" "./om-ct/bin/back-configs.sh"
 else
   echo "ct configs backup skipped."
 fi
@@ -23,7 +23,7 @@ fi
 
 read -p "backup ct volumes? [Y/n] " answer </dev/tty
 if [[ "$answer" = "Y" || "$answer" = "y" || "$answer" = "" ]]; then
-  ssh -t "$REMOTE_HOST" "cd om-ct; ./bin/backup-volumes.sh"
+  ssh -t "$REMOTE_HOST" "./om-ct/bin/back-volumes.sh"
 else
   echo "ct volumes backup skipped."
 fi

@@ -5,7 +5,7 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 REMOTE_HOST="$1"
-BACKUP_DEST="backup/backup-${REMOTE_HOST}-$(date +%Y%m%d)"
+BACKUP_DEST="zz-backup/backup-${REMOTE_HOST}-$(date +%Y%m%d)"
 mkdir -p "$BACKUP_DEST"
 for lib in lib/*.sh; do
   source "$lib"

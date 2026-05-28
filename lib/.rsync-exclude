@@ -16,3 +16,4 @@ __pycache__/
 # Ignore virtual environments
 .venv*/
 
+zz-backup/

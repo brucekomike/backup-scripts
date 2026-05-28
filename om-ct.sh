@@ -2,7 +2,7 @@
 # $0 <host>
 
 REMOTE_HOST="$1"
-BACKUP_DEST="backup/backup-${REMOTE_HOST}-ct"
+BACKUP_DEST="zz-backup/backup-${REMOTE_HOST}-ct"
 
 source lib/00-init.sh
 

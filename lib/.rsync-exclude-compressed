@@ -16,6 +16,9 @@ __pycache__/
 # Ignore virtual environments
 .venv*/
 
+# backup dir in this project
+zz-backup/
+
 # ignore archives
 *.zip
 *.tar

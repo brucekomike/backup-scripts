@@ -1,7 +1,7 @@
 # $0 <folder>
 function cp-remote(){
   local folder="$1"
-rsync -arzPh --stats --exclude-from=lib/.rsync-exclude $REMOTE_HOST:$folder/ $BACKUP_DEST/$folder
+  rsync -arzPh $RSYNC_RESUME_FLAG --stats --exclude-from=lib/.rsync-exclude $REMOTE_HOST:$folder/ $BACKUP_DEST/$folder
 }
 function cp-sftp(){
   local folder="$1"

@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 # $0 <src> <dest>
+for lib in lib/*.sh; do
+  source "$lib"
+done
+
 if [ $# -ne 2 ]; then
   echo "Usage: $0 <src> <dest>"
   exit 1
@@ -19,8 +23,5 @@ if [ ! -d "$SRC" ]; then
     exit 1
 fi
 mkdir -p "$DEST"
-
-
-source lib/10-file.sh
 
 cp-local "$SRC" "$DEST"

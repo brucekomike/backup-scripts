@@ -113,7 +113,7 @@ function resolve-config(){
     echo "# /var/www" >> "$CONF_BASE.conf"
     echo "# /etc/nginx" >> "$CONF_BASE.conf"
     echo "# single dir perline" >> "$CONF_BASE.conf"
-    echo "# %mariadb  -> trigger a mariadb dump for this host" >> "$CONF_BASE.conf"
+    echo "# %mariadb  -> trigger a mariadb dump for this host (passwordless unix_socket when sudo -n works)" >> "$CONF_BASE.conf"
     echo "# %om-ct    -> run the om-ct backup steps for this host" >> "$CONF_BASE.conf"
     echo "# close the editor to start the backup process" >> "$CONF_BASE.conf"
     CONF_FILES=("$CONF_BASE.conf")

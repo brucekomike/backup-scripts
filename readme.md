@@ -12,9 +12,12 @@ bash scripts to automate backup process
 
 A config file can contain regular directories (one per line) plus special
 flags:
-- `%mariadb`: run the mariadb dump steps for that host. Always asks for
-  manual confirmation, even in silent mode (because the password must be
-  typed in manually).
+- `%mariadb`: run the mariadb dump steps for that host. When the remote login
+  user has passwordless `sudo`, the dump runs as OS root over the unix socket —
+  `root@localhost` with the `unix_socket` plugin needs no password — so a plain
+  `[Y/n]` is enough and `--silent` works too. Otherwise it falls back to
+  `mysqldump -u root -p` and always asks for manual confirmation, even in silent
+  mode (because the password must be typed in manually).
 - `%om-ct`: run the om-ct backup steps (back up and download ct configs
   and volumes) for that host.
 

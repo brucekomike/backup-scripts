@@ -44,8 +44,17 @@ for CONF_FILE in "${CONF_FILES[@]}"; do
       continue
     fi
     if [[ "$line" == "%mariadb" ]]; then
-      # always requires manual confirmation (needs manual password input)
-      if ask-always "backup mariadb on $REMOTE_HOST? [Y/n]"; then
+      # a unix_socket dump needs no password, so it can run unattended; the
+      # password fallback always needs a human at the tty
+      MARIADB_SOCKET=0
+      asker="ask-always"
+      prompt="backup mariadb on $REMOTE_HOST (needs the root password)? [Y/n]"
+      if mariadb-socket-available; then
+        MARIADB_SOCKET=1
+        asker="ask"
+        prompt="backup mariadb on $REMOTE_HOST via unix_socket? [Y/n]"
+      fi
+      if "$asker" "$prompt"; then
         ssh-dump-mariadb
       else
         echo "mariadb backup skipped."
